@@ -6,7 +6,7 @@
 //
 //----------------------------------------
 
-package types
+package wk
 
 import "github.com/energye/lcl/types"
 

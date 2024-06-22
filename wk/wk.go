@@ -10,7 +10,7 @@ package wk
 
 import (
 	"github.com/energye/lcl/lcl"
-	. "github.com/energye/wk/types"
+
 	"unsafe"
 )
 

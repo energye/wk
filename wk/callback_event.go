@@ -13,7 +13,6 @@ import (
 	"github.com/energye/lcl/emfs"
 	"github.com/energye/lcl/inits"
 	"github.com/energye/lcl/lcl"
-	. "github.com/energye/wk/types"
 	"unsafe"
 )
 

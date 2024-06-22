@@ -11,7 +11,6 @@ package wk
 import (
 	. "github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
-	. "github.com/energye/wk/types"
 )
 
 // IWkNavigationAction Root Interface

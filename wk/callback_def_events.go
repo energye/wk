@@ -8,8 +8,6 @@
 
 package wk
 
-import . "github.com/energye/wk/types"
-
 type IWkCookieManagerDelegateEvent interface {
 	// SetOnGetAcceptPolicyFinish
 	//  完成由webkit_cookie_manager_get_accept_policy()启动的异步操作。
