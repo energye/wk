@@ -58,7 +58,7 @@ var (
 	wkInputStreamImportTables                  = []*imports.Table{
 		/*0*/ imports.NewTable("WkInputStream_Close", 0),
 		/*1*/ imports.NewTable("WkInputStream_Create", 0),
-		/*2*/ imports.NewTable("WkInputStream_Create1", 0),
+		/*2*/ imports.NewTable("WkInputStream_New", 0),
 		/*3*/ imports.NewTable("WkInputStream_Data", 0),
 		/*4*/ imports.NewTable("WkInputStream_Read", 0),
 	}
