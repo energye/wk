@@ -123,7 +123,8 @@ type IWkWebview interface {
 	SetOnContextMenu(fn TWkContextMenuEvent)                   // property event
 	SetOnContextMenuCommand(fn TWkContextMenuCommandEvent)     // property event
 	SetOnContextMenuDismissed(fn TWkContextMenuDismissedEvent) // property event
-	AsSchemeRequestDelegateEvent() IWkWebview
+	AsCookieManagerDelegate() IWkWebview
+	AsSchemeRequestDelegate() IWkWebview
 }
 
 // TWkWebview Root Object
@@ -385,9 +386,15 @@ func (m *TWkWebview) SetOnContextMenuDismissed(fn TWkContextMenuDismissedEvent) 
 	wkWebviewImportAPI().SysCallN(21, m.Instance(), m.contextMenuDismissedPtr)
 }
 
-func (m *TWkWebview) AsSchemeRequestDelegateEvent() IWkWebview {
+func (m *TWkWebview) AsCookieManagerDelegate() IWkWebview {
 	var result uintptr
 	wkWebviewImportAPI().SysCallN(41, m.Instance(), uintptr(unsafePointer(&result)))
+	return AsWkWebview(result)
+}
+
+func (m *TWkWebview) AsSchemeRequestDelegate() IWkWebview {
+	var result uintptr
+	wkWebviewImportAPI().SysCallN(42, m.Instance(), uintptr(unsafePointer(&result)))
 	return AsWkWebview(result)
 }
 
@@ -435,7 +442,8 @@ var (
 		/*38*/ imports.NewTable("WkWebview_TerminateWebProcess", 0),
 		/*39*/ imports.NewTable("WkWebview_TryClose", 0),
 		/*40*/ imports.NewTable("WkWebview_WebView", 0),
-		/*40*/ imports.NewTable("WkWebview_AsSchemeRequestDelegateEvent", 0),
+		/*40*/ imports.NewTable("WkWebview_AsCookieManagerDelegate", 0),
+		/*40*/ imports.NewTable("WkWebview_AsSchemeRequestDelegate", 0),
 	}
 )
 
