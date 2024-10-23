@@ -32,19 +32,19 @@ type IWkSchemeRequestDelegateEvent interface {
 	SetOnURISchemeRequest(fn TWkURISchemeRequestEvent)
 }
 
-type TWkLoadChangeEvent func(sender IObject, loadEvent WebKitLoadEvent)
+type TWkLoadChangeEvent func(sender IObject, wkLoadEvent WebKitLoadEvent)
 type TWkExecuteScriptFinishedEvent func(sender IObject, jsValue IWkJSValue)
-type TWkLoadFailedEvent func(sender IObject, loadEvent WebKitLoadEvent, failingUri string, error_ string) bool
-type TWkURISchemeRequestEvent func(sender IObject, uriSchemeRequest WebKitURISchemeRequest)
+type TWkLoadFailedEvent func(sender IObject, wkLoadEvent WebKitLoadEvent, failingUri string, error_ string) bool
+type TWkURISchemeRequestEvent func(sender IObject, wkURISchemeRequest WebKitURISchemeRequest)
 type TWkProcessMessageEvent func(sender IObject, jsValue IWkJSValue, processId TWkProcessId)
 type TWkMousePressEvent func(sender IObject, event TWkButtonEvent) bool
 type TWkMouseReleaseEvent func(sender IObject, event TWkButtonEvent) bool
 type TWkGetAcceptPolicyFinishEvent func(sender IObject, policy WebKitCookieAcceptPolicy, error_ string)
 type TWkAddCookieFinishEvent func(sender IObject, result bool, error_ string)
-type TWkGetCookiesFinishEvent func(sender IObject, cookieList PList, error_ string)
+type TWkGetCookiesFinishEvent func(sender IObject, wkCookieList PList, error_ string)
 type TWkDeleteCookieFinishEvent func(sender IObject, result bool, error_ string)
-type TWkDecidePolicyEvent func(sender IObject, decision WebKitPolicyDecision, type_ WebKitPolicyDecisionType) bool
-type TWkWebProcessTerminatedEvent func(sender IObject, reason WebKitWebProcessTerminationReason)
-type TWkContextMenuEvent func(sender IObject, contextMenu WebKitContextMenu, defaultAction PWkAction) bool
+type TWkDecidePolicyEvent func(sender IObject, wkDecision WebKitPolicyDecision, type_ WebKitPolicyDecisionType) bool
+type TWkWebProcessTerminatedEvent func(sender IObject, wkReason WebKitWebProcessTerminationReason)
+type TWkContextMenuEvent func(sender IObject, wkContextMenu WebKitContextMenu, wkDefaultAction PWkAction) bool
 type TWkContextMenuCommandEvent func(sender IObject, menuID int32)
 type TWkContextMenuDismissedEvent func(sender IObject)
