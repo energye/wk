@@ -16,8 +16,8 @@ import (
 // IWkWebsitePolicies Root Interface
 type IWkWebsitePolicies interface {
 	IObject
-	GetAutoplayPolicy() WebKitAutoplayPolicy // function
 	Data() WebKitWebsitePolicies             // function
+	GetAutoplayPolicy() WebKitAutoplayPolicy // function
 }
 
 // TWkWebsitePolicies Root Object
@@ -35,14 +35,14 @@ func NewWkWebsitePolicies1(firstpolicyname string) IWkWebsitePolicies {
 	return AsWkWebsitePolicies(r1)
 }
 
-func (m *TWkWebsitePolicies) GetAutoplayPolicy() WebKitAutoplayPolicy {
-	r1 := wkWebsitePoliciesImportAPI().SysCallN(3, m.Instance())
-	return WebKitAutoplayPolicy(r1)
-}
-
 func (m *TWkWebsitePolicies) Data() WebKitWebsitePolicies {
 	r1 := wkWebsitePoliciesImportAPI().SysCallN(2, m.Instance())
 	return WebKitWebsitePolicies(r1)
+}
+
+func (m *TWkWebsitePolicies) GetAutoplayPolicy() WebKitAutoplayPolicy {
+	r1 := wkWebsitePoliciesImportAPI().SysCallN(3, m.Instance())
+	return WebKitAutoplayPolicy(r1)
 }
 
 var (

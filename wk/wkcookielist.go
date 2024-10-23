@@ -16,6 +16,7 @@ import (
 // IWkCookieList Root Interface
 type IWkCookieList interface {
 	IObject
+	Data() PList                       // function
 	Length() int32                     // function
 	GetCookie(index int32) PSoupCookie // function
 }
@@ -30,13 +31,18 @@ func NewWkCookieList(aList PList) IWkCookieList {
 	return AsWkCookieList(r1)
 }
 
+func (m *TWkCookieList) Data() PList {
+	r1 := wkCookieListImportAPI().SysCallN(1, m.Instance())
+	return PList(r1)
+}
+
 func (m *TWkCookieList) Length() int32 {
-	r1 := wkCookieListImportAPI().SysCallN(2, m.Instance())
+	r1 := wkCookieListImportAPI().SysCallN(3, m.Instance())
 	return int32(r1)
 }
 
 func (m *TWkCookieList) GetCookie(index int32) PSoupCookie {
-	r1 := wkCookieListImportAPI().SysCallN(1, m.Instance(), uintptr(index))
+	r1 := wkCookieListImportAPI().SysCallN(2, m.Instance(), uintptr(index))
 	return PSoupCookie(r1)
 }
 
@@ -44,8 +50,9 @@ var (
 	wkCookieListImport       *imports.Imports = nil
 	wkCookieListImportTables                  = []*imports.Table{
 		/*0*/ imports.NewTable("WkCookieList_Create", 0),
-		/*1*/ imports.NewTable("WkCookieList_GetCookie", 0),
-		/*2*/ imports.NewTable("WkCookieList_Length", 0),
+		/*1*/ imports.NewTable("WkCookieList_Data", 0),
+		/*2*/ imports.NewTable("WkCookieList_GetCookie", 0),
+		/*3*/ imports.NewTable("WkCookieList_Length", 0),
 	}
 )
 

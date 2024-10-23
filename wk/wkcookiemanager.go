@@ -16,6 +16,7 @@ import (
 // IWkCookieManager Root Interface
 type IWkCookieManager interface {
 	IObject
+	Data() WebKitCookieManager                                                   // function
 	SetPersistentStorage(filename string, storage WebKitCookiePersistentStorage) // procedure
 	SetAcceptPolicy(policy WebKitCookieAcceptPolicy)                             // procedure
 	// GetAcceptPolicy
@@ -66,20 +67,25 @@ var WkCookieManagerRef wkCookieManager
 type wkCookieManager uintptr
 
 func (m *wkCookieManager) NewDelegate(aCookieManager WebKitCookieManager, aDelegateEvent IWkCookieManagerDelegateEvent) IWkCookieManager {
-	r1 := wkCookieManagerImportAPI().SysCallN(7, uintptr(aCookieManager), GetObjectUintptr(aDelegateEvent))
+	r1 := wkCookieManagerImportAPI().SysCallN(8, uintptr(aCookieManager), GetObjectUintptr(aDelegateEvent))
 	return AsWkCookieManager(r1)
 }
 
+func (m *TWkCookieManager) Data() WebKitCookieManager {
+	r1 := wkCookieManagerImportAPI().SysCallN(2, m.Instance())
+	return WebKitCookieManager(r1)
+}
+
 func (m *TWkCookieManager) SetPersistentStorage(filename string, storage WebKitCookiePersistentStorage) {
-	wkCookieManagerImportAPI().SysCallN(9, m.Instance(), PascalStr(filename), uintptr(storage))
+	wkCookieManagerImportAPI().SysCallN(10, m.Instance(), PascalStr(filename), uintptr(storage))
 }
 
 func (m *TWkCookieManager) SetAcceptPolicy(policy WebKitCookieAcceptPolicy) {
-	wkCookieManagerImportAPI().SysCallN(8, m.Instance(), uintptr(policy))
+	wkCookieManagerImportAPI().SysCallN(9, m.Instance(), uintptr(policy))
 }
 
 func (m *TWkCookieManager) GetAcceptPolicy() {
-	wkCookieManagerImportAPI().SysCallN(5, m.Instance())
+	wkCookieManagerImportAPI().SysCallN(6, m.Instance())
 }
 
 func (m *TWkCookieManager) AddCookie(cookie PSoupCookie) {
@@ -87,19 +93,19 @@ func (m *TWkCookieManager) AddCookie(cookie PSoupCookie) {
 }
 
 func (m *TWkCookieManager) GetCookies(uri string) {
-	wkCookieManagerImportAPI().SysCallN(6, m.Instance(), PascalStr(uri))
+	wkCookieManagerImportAPI().SysCallN(7, m.Instance(), PascalStr(uri))
 }
 
 func (m *TWkCookieManager) DeleteCookie(cookie PSoupCookie) {
-	wkCookieManagerImportAPI().SysCallN(3, m.Instance(), uintptr(cookie))
+	wkCookieManagerImportAPI().SysCallN(4, m.Instance(), uintptr(cookie))
 }
 
 func (m *TWkCookieManager) DeleteCookiesForDomain(domain string) {
-	wkCookieManagerImportAPI().SysCallN(4, m.Instance(), PascalStr(domain))
+	wkCookieManagerImportAPI().SysCallN(5, m.Instance(), PascalStr(domain))
 }
 
 func (m *TWkCookieManager) DeleteAllCookies() {
-	wkCookieManagerImportAPI().SysCallN(2, m.Instance())
+	wkCookieManagerImportAPI().SysCallN(3, m.Instance())
 }
 
 var (
@@ -107,14 +113,15 @@ var (
 	wkCookieManagerImportTables                  = []*imports.Table{
 		/*0*/ imports.NewTable("WkCookieManager_AddCookie", 0),
 		/*1*/ imports.NewTable("WkCookieManager_Create", 0),
-		/*2*/ imports.NewTable("WkCookieManager_DeleteAllCookies", 0),
-		/*3*/ imports.NewTable("WkCookieManager_DeleteCookie", 0),
-		/*4*/ imports.NewTable("WkCookieManager_DeleteCookiesForDomain", 0),
-		/*5*/ imports.NewTable("WkCookieManager_GetAcceptPolicy", 0),
-		/*6*/ imports.NewTable("WkCookieManager_GetCookies", 0),
-		/*7*/ imports.NewTable("WkCookieManager_NewDelegate", 0),
-		/*8*/ imports.NewTable("WkCookieManager_SetAcceptPolicy", 0),
-		/*9*/ imports.NewTable("WkCookieManager_SetPersistentStorage", 0),
+		/*2*/ imports.NewTable("WkCookieManager_Data", 0),
+		/*3*/ imports.NewTable("WkCookieManager_DeleteAllCookies", 0),
+		/*4*/ imports.NewTable("WkCookieManager_DeleteCookie", 0),
+		/*5*/ imports.NewTable("WkCookieManager_DeleteCookiesForDomain", 0),
+		/*6*/ imports.NewTable("WkCookieManager_GetAcceptPolicy", 0),
+		/*7*/ imports.NewTable("WkCookieManager_GetCookies", 0),
+		/*8*/ imports.NewTable("WkCookieManager_NewDelegate", 0),
+		/*9*/ imports.NewTable("WkCookieManager_SetAcceptPolicy", 0),
+		/*10*/ imports.NewTable("WkCookieManager_SetPersistentStorage", 0),
 	}
 )
 
