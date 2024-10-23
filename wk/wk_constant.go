@@ -257,12 +257,15 @@ const (
 type JSType = int32
 
 const (
-	kJSTypeUndefined JSType = iota
-	kJSTypeNull
-	kJSTypeBoolean
-	kJSTypeNumber
-	kJSTypeString
-	kJSTypeObject
+	JtInvalid JSType = iota
+	JtNotSupported
+	JtUndefined
+	JtNull
+	JtString
+	JtNumber
+	JtInteger
+	JtBoolean
+	JtException
 )
 
 type TSoupMessageHeadersType = int32
