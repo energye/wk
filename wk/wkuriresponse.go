@@ -17,7 +17,7 @@ import (
 type IWkURIResponse interface {
 	IObject
 	URI() string                             // property
-	Headers() IWkHeaders                     // function
+	Headers() PSoupMessageHeaders            // function
 	GetStatusCode() int32                    // function
 	GetContentLength() (resultUint64 uint64) // function
 	GetMimeType() string                     // function
@@ -39,10 +39,9 @@ func (m *TWkURIResponse) URI() string {
 	return GoStr(r1)
 }
 
-func (m *TWkURIResponse) Headers() IWkHeaders {
-	var resultWkHeaders uintptr
-	wkURIResponseImportAPI().SysCallN(5, m.Instance(), uintptr(unsafePointer(&resultWkHeaders)))
-	return AsWkHeaders(resultWkHeaders)
+func (m *TWkURIResponse) Headers() PSoupMessageHeaders {
+	r1 := wkURIResponseImportAPI().SysCallN(5, m.Instance())
+	return PSoupMessageHeaders(r1)
 }
 
 func (m *TWkURIResponse) GetStatusCode() int32 {

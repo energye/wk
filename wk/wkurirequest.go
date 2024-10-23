@@ -16,10 +16,10 @@ import (
 // IWkURIRequest Root Interface
 type IWkURIRequest interface {
 	IObject
-	URI() string          // property
-	SetURI(AValue string) // property
-	Method() string       // function
-	Headers() IWkHeaders  // function
+	URI() string                  // property
+	SetURI(AValue string)         // property
+	Method() string               // function
+	Headers() PSoupMessageHeaders // function
 }
 
 // TWkURIRequest Root Object
@@ -38,10 +38,9 @@ var WkURIRequestRef wkURIRequest
 // wkURIRequest TWkURIRequest Ref
 type wkURIRequest uintptr
 
-func (m *wkURIRequest) NewURIRequest(uri string) IWkURIRequest {
-	var resultWkURIRequest uintptr
-	wkURIRequestImportAPI().SysCallN(3, PascalStr(uri), uintptr(unsafePointer(&resultWkURIRequest)))
-	return AsWkURIRequest(resultWkURIRequest)
+func (m *wkURIRequest) NewURIRequest(aUri string) IWkURIRequest {
+	r1 := wkURIRequestImportAPI().SysCallN(3, PascalStr(aUri))
+	return AsWkURIRequest(r1)
 }
 
 func (m *TWkURIRequest) URI() string {
@@ -58,10 +57,9 @@ func (m *TWkURIRequest) Method() string {
 	return GoStr(r1)
 }
 
-func (m *TWkURIRequest) Headers() IWkHeaders {
-	var resultWkHeaders uintptr
-	wkURIRequestImportAPI().SysCallN(1, m.Instance(), uintptr(unsafePointer(&resultWkHeaders)))
-	return AsWkHeaders(resultWkHeaders)
+func (m *TWkURIRequest) Headers() PSoupMessageHeaders {
+	r1 := wkURIRequestImportAPI().SysCallN(1, m.Instance())
+	return PSoupMessageHeaders(r1)
 }
 
 var (

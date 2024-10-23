@@ -16,11 +16,11 @@ import (
 // IWkPolicyDecision Root Interface
 type IWkPolicyDecision interface {
 	IObject
-	Data() WebKitPolicyDecision                  // function
-	Use()                                        // procedure
-	UseWithPolicies(policies IWkWebsitePolicies) // procedure
-	Ignore()                                     // procedure
-	Download()                                   // procedure
+	Data() WebKitPolicyDecision                     // function
+	Use()                                           // procedure
+	UseWithPolicies(policies WebKitWebsitePolicies) // procedure
+	Ignore()                                        // procedure
+	Download()                                      // procedure
 }
 
 // TWkPolicyDecision Root Object
@@ -42,8 +42,8 @@ func (m *TWkPolicyDecision) Use() {
 	wkPolicyDecisionImportAPI().SysCallN(4, m.Instance())
 }
 
-func (m *TWkPolicyDecision) UseWithPolicies(policies IWkWebsitePolicies) {
-	wkPolicyDecisionImportAPI().SysCallN(5, m.Instance(), GetObjectUintptr(policies))
+func (m *TWkPolicyDecision) UseWithPolicies(policies WebKitWebsitePolicies) {
+	wkPolicyDecisionImportAPI().SysCallN(5, m.Instance(), uintptr(policies))
 }
 
 func (m *TWkPolicyDecision) Ignore() {

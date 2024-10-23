@@ -31,13 +31,19 @@ func NewWkInputStream(aInputStream PInputStream) IWkInputStream {
 	return AsWkInputStream(r1)
 }
 
-func NewWkInputStream1(aBuf uintptr, aStreamLength int64) IWkInputStream {
-	r1 := wkInputStreamImportAPI().SysCallN(2, uintptr(aBuf), uintptr(unsafePointer(&aStreamLength)))
+// WkInputStreamRef -> IWkInputStream
+var WkInputStreamRef wkInputStream
+
+// wkInputStream TWkInputStream Ref
+type wkInputStream uintptr
+
+func (m *wkInputStream) New(aBuf uintptr, aStreamLength int64) IWkInputStream {
+	r1 := wkInputStreamImportAPI().SysCallN(3, uintptr(aBuf), uintptr(unsafePointer(&aStreamLength)))
 	return AsWkInputStream(r1)
 }
 
 func (m *TWkInputStream) Data() PInputStream {
-	r1 := wkInputStreamImportAPI().SysCallN(3, m.Instance())
+	r1 := wkInputStreamImportAPI().SysCallN(2, m.Instance())
 	return PInputStream(r1)
 }
 
@@ -58,8 +64,8 @@ var (
 	wkInputStreamImportTables                  = []*imports.Table{
 		/*0*/ imports.NewTable("WkInputStream_Close", 0),
 		/*1*/ imports.NewTable("WkInputStream_Create", 0),
-		/*2*/ imports.NewTable("WkInputStream_New", 0),
-		/*3*/ imports.NewTable("WkInputStream_Data", 0),
+		/*2*/ imports.NewTable("WkInputStream_Data", 0),
+		/*3*/ imports.NewTable("WkInputStream_New", 0),
 		/*4*/ imports.NewTable("WkInputStream_Read", 0),
 	}
 )

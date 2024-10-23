@@ -16,7 +16,7 @@ import (
 // IWkWebContext Root Interface
 type IWkWebContext interface {
 	IObject
-	GetCookieManager() IWkCookieManager                                        // function
+	GetCookieManager() WebKitCookieManager                                     // function
 	RegisterURIScheme(aScheme string, aDelegate IWkSchemeRequestDelegateEvent) // procedure
 	SetCacheModel(cachemodel WebKitCacheModel)                                 // procedure
 	DownloadURI(uri string)                                                    // procedure
@@ -40,21 +40,18 @@ var WkWebContextRef wkWebContext
 type wkWebContext uintptr
 
 func (m *wkWebContext) Default() IWkWebContext {
-	var resultWkWebContext uintptr
-	wkWebContextImportAPI().SysCallN(1, uintptr(unsafePointer(&resultWkWebContext)))
-	return AsWkWebContext(resultWkWebContext)
+	r1 := wkWebContextImportAPI().SysCallN(1)
+	return AsWkWebContext(r1)
 }
 
 func (m *wkWebContext) New() IWkWebContext {
-	var resultWkWebContext uintptr
-	wkWebContextImportAPI().SysCallN(4, uintptr(unsafePointer(&resultWkWebContext)))
-	return AsWkWebContext(resultWkWebContext)
+	r1 := wkWebContextImportAPI().SysCallN(4)
+	return AsWkWebContext(r1)
 }
 
-func (m *TWkWebContext) GetCookieManager() IWkCookieManager {
-	var resultWkCookieManager uintptr
-	wkWebContextImportAPI().SysCallN(3, m.Instance(), uintptr(unsafePointer(&resultWkCookieManager)))
-	return AsWkCookieManager(resultWkCookieManager)
+func (m *TWkWebContext) GetCookieManager() WebKitCookieManager {
+	r1 := wkWebContextImportAPI().SysCallN(3, m.Instance())
+	return WebKitCookieManager(r1)
 }
 
 func (m *TWkWebContext) RegisterURIScheme(aScheme string, aDelegate IWkSchemeRequestDelegateEvent) {

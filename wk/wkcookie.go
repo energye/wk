@@ -16,22 +16,22 @@ import (
 // IWkCookie Root Interface
 type IWkCookie interface {
 	IObject
-	Name() string                    // property
-	SetName(AValue string)           // property
-	Value() string                   // property
-	SetValue(AValue string)          // property
-	Domain() string                  // property
-	SetDomain(AValue string)         // property
-	Path() string                    // property
-	SetPath(AValue string)           // property
-	HttpOnly() bool                  // property
-	SetHttpOnly(AValue bool)         // property
-	Secure() bool                    // property
-	SetSecure(AValue bool)           // property
-	Expires() IWkCookieDate          // property
-	SetExpires(AValue IWkCookieDate) // property
-	Data() PSoupCookie               // function
-	SetMaxAge(aValue int32)          // procedure
+	Name() string                // property
+	SetName(AValue string)       // property
+	Value() string               // property
+	SetValue(AValue string)      // property
+	Domain() string              // property
+	SetDomain(AValue string)     // property
+	Path() string                // property
+	SetPath(AValue string)       // property
+	HttpOnly() bool              // property
+	SetHttpOnly(AValue bool)     // property
+	Secure() bool                // property
+	SetSecure(AValue bool)       // property
+	Expires() PSoupDate          // property
+	SetExpires(AValue PSoupDate) // property
+	Data() PSoupCookie           // function
+	SetMaxAge(aValue int32)      // procedure
 }
 
 // TWkCookie Root Object
@@ -51,9 +51,8 @@ var WkCookieRef wkCookie
 type wkCookie uintptr
 
 func (m *wkCookie) NewCookie(aName, aValue, aDomain, aPath string, aMaxAge int32) IWkCookie {
-	var resultWkCookie uintptr
-	wkCookieImportAPI().SysCallN(6, PascalStr(aName), PascalStr(aValue), PascalStr(aDomain), PascalStr(aPath), uintptr(aMaxAge), uintptr(unsafePointer(&resultWkCookie)))
-	return AsWkCookie(resultWkCookie)
+	r1 := wkCookieImportAPI().SysCallN(6, PascalStr(aName), PascalStr(aValue), PascalStr(aDomain), PascalStr(aPath), uintptr(aMaxAge))
+	return AsWkCookie(r1)
 }
 
 func (m *TWkCookie) Name() string {
@@ -110,14 +109,13 @@ func (m *TWkCookie) SetSecure(AValue bool) {
 	wkCookieImportAPI().SysCallN(8, 1, m.Instance(), PascalBool(AValue))
 }
 
-func (m *TWkCookie) Expires() IWkCookieDate {
-	var resultWkCookieDate uintptr
-	wkCookieImportAPI().SysCallN(3, 0, m.Instance(), 0, uintptr(unsafePointer(&resultWkCookieDate)))
-	return AsWkCookieDate(resultWkCookieDate)
+func (m *TWkCookie) Expires() PSoupDate {
+	r1 := wkCookieImportAPI().SysCallN(3, 0, m.Instance(), 0)
+	return PSoupDate(r1)
 }
 
-func (m *TWkCookie) SetExpires(AValue IWkCookieDate) {
-	wkCookieImportAPI().SysCallN(3, 1, m.Instance(), GetObjectUintptr(AValue), GetObjectUintptr(AValue))
+func (m *TWkCookie) SetExpires(AValue PSoupDate) {
+	wkCookieImportAPI().SysCallN(3, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TWkCookie) Data() PSoupCookie {

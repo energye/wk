@@ -28,7 +28,7 @@ type IWkCookieManager interface {
 	//  异步地将SoupCookie添加到底层存储。
 	//  当操作完成时，回调将被调用。然后可以调用webkit_cookie_manager_add_cookie_finish()来获取操作的结果。
 	//  https://webkitgtk.org/reference/webkit2gtk/stable/method.CookieManager.add_cookie.html
-	AddCookie(cookie IWkCookie) // procedure
+	AddCookie(cookie PSoupCookie) // procedure
 	// GetCookies
 	//  从cookie_manager异步获取SoupCookie的列表。
 	//  从与uri关联的cookie_manager异步获取SoupCookie的列表，该列表必须是HTTP或HTTPS URL。
@@ -39,7 +39,7 @@ type IWkCookieManager interface {
 	//  从当前会话中异步删除SoupCookie。
 	//  当操作完成时，回调将被调用。然后可以调用webkit_cookie_manager_delete_cookie_finish()来获取操作的结果。
 	//  https://webkitgtk.org/reference/webkit2gtk/stable/method.CookieManager.delete_cookie.html
-	DeleteCookie(cookie IWkCookie) // procedure
+	DeleteCookie(cookie PSoupCookie) // procedure
 	// DeleteCookiesForDomain
 	//  删除给定域的cookie_manager的所有cookie。
 	//  https://webkitgtk.org/reference/webkit2gtk/stable/method.CookieManager.delete_cookies_for_domain.html
@@ -59,8 +59,14 @@ func NewWkCookieManager(aCookieManager WebKitCookieManager) IWkCookieManager {
 	return AsWkCookieManager(r1)
 }
 
-func NewWkCookieManager1(aCookieManager WebKitCookieManager, aDelegateEvent IWkCookieManagerDelegateEvent) IWkCookieManager {
-	r1 := wkCookieManagerImportAPI().SysCallN(2, uintptr(aCookieManager), GetObjectUintptr(aDelegateEvent))
+// WkCookieManagerRef -> IWkCookieManager
+var WkCookieManagerRef wkCookieManager
+
+// wkCookieManager TWkCookieManager Ref
+type wkCookieManager uintptr
+
+func (m *wkCookieManager) NewDelegate(aCookieManager WebKitCookieManager, aDelegateEvent IWkCookieManagerDelegateEvent) IWkCookieManager {
+	r1 := wkCookieManagerImportAPI().SysCallN(7, uintptr(aCookieManager), GetObjectUintptr(aDelegateEvent))
 	return AsWkCookieManager(r1)
 }
 
@@ -73,27 +79,27 @@ func (m *TWkCookieManager) SetAcceptPolicy(policy WebKitCookieAcceptPolicy) {
 }
 
 func (m *TWkCookieManager) GetAcceptPolicy() {
-	wkCookieManagerImportAPI().SysCallN(6, m.Instance())
+	wkCookieManagerImportAPI().SysCallN(5, m.Instance())
 }
 
-func (m *TWkCookieManager) AddCookie(cookie IWkCookie) {
-	wkCookieManagerImportAPI().SysCallN(0, m.Instance(), GetObjectUintptr(cookie))
+func (m *TWkCookieManager) AddCookie(cookie PSoupCookie) {
+	wkCookieManagerImportAPI().SysCallN(0, m.Instance(), uintptr(cookie))
 }
 
 func (m *TWkCookieManager) GetCookies(uri string) {
-	wkCookieManagerImportAPI().SysCallN(7, m.Instance(), PascalStr(uri))
+	wkCookieManagerImportAPI().SysCallN(6, m.Instance(), PascalStr(uri))
 }
 
-func (m *TWkCookieManager) DeleteCookie(cookie IWkCookie) {
-	wkCookieManagerImportAPI().SysCallN(4, m.Instance(), GetObjectUintptr(cookie))
+func (m *TWkCookieManager) DeleteCookie(cookie PSoupCookie) {
+	wkCookieManagerImportAPI().SysCallN(3, m.Instance(), uintptr(cookie))
 }
 
 func (m *TWkCookieManager) DeleteCookiesForDomain(domain string) {
-	wkCookieManagerImportAPI().SysCallN(5, m.Instance(), PascalStr(domain))
+	wkCookieManagerImportAPI().SysCallN(4, m.Instance(), PascalStr(domain))
 }
 
 func (m *TWkCookieManager) DeleteAllCookies() {
-	wkCookieManagerImportAPI().SysCallN(3, m.Instance())
+	wkCookieManagerImportAPI().SysCallN(2, m.Instance())
 }
 
 var (
@@ -101,12 +107,12 @@ var (
 	wkCookieManagerImportTables                  = []*imports.Table{
 		/*0*/ imports.NewTable("WkCookieManager_AddCookie", 0),
 		/*1*/ imports.NewTable("WkCookieManager_Create", 0),
-		/*2*/ imports.NewTable("WkCookieManager_Create1", 0),
-		/*3*/ imports.NewTable("WkCookieManager_DeleteAllCookies", 0),
-		/*4*/ imports.NewTable("WkCookieManager_DeleteCookie", 0),
-		/*5*/ imports.NewTable("WkCookieManager_DeleteCookiesForDomain", 0),
-		/*6*/ imports.NewTable("WkCookieManager_GetAcceptPolicy", 0),
-		/*7*/ imports.NewTable("WkCookieManager_GetCookies", 0),
+		/*2*/ imports.NewTable("WkCookieManager_DeleteAllCookies", 0),
+		/*3*/ imports.NewTable("WkCookieManager_DeleteCookie", 0),
+		/*4*/ imports.NewTable("WkCookieManager_DeleteCookiesForDomain", 0),
+		/*5*/ imports.NewTable("WkCookieManager_GetAcceptPolicy", 0),
+		/*6*/ imports.NewTable("WkCookieManager_GetCookies", 0),
+		/*7*/ imports.NewTable("WkCookieManager_NewDelegate", 0),
 		/*8*/ imports.NewTable("WkCookieManager_SetAcceptPolicy", 0),
 		/*9*/ imports.NewTable("WkCookieManager_SetPersistentStorage", 0),
 	}

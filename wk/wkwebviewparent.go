@@ -43,13 +43,12 @@ func (m *TWkWebViewParent) SetScrolledWindow(AValue TScrolledWindow) {
 }
 
 func (m *TWkWebViewParent) WebView() IWkWebview {
-	var resultWkWebview uintptr
-	wkWebViewParentImportAPI().SysCallN(3, 0, m.Instance(), 0, uintptr(unsafePointer(&resultWkWebview)))
-	return AsWkWebview(resultWkWebview)
+	r1 := wkWebViewParentImportAPI().SysCallN(3, 0, m.Instance(), 0)
+	return AsWkWebview(r1)
 }
 
 func (m *TWkWebViewParent) SetWebView(AValue IWkWebview) {
-	wkWebViewParentImportAPI().SysCallN(3, 1, m.Instance(), GetObjectUintptr(AValue), GetObjectUintptr(AValue))
+	wkWebViewParentImportAPI().SysCallN(3, 1, m.Instance(), GetObjectUintptr(AValue))
 }
 
 func (m *TWkWebViewParent) FreeChild() {

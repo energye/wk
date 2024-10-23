@@ -16,7 +16,7 @@ import (
 // IWkNavigationAction Root Interface
 type IWkNavigationAction interface {
 	IObject
-	GetRequest() IWkURIRequest // function
+	GetRequest() WebKitURIRequest // function
 }
 
 // TWkNavigationAction Root Object
@@ -29,10 +29,9 @@ func NewWkNavigationAction(aNavigationAction WebKitNavigationAction) IWkNavigati
 	return AsWkNavigationAction(r1)
 }
 
-func (m *TWkNavigationAction) GetRequest() IWkURIRequest {
-	var resultWkURIRequest uintptr
-	wkNavigationActionImportAPI().SysCallN(1, m.Instance(), uintptr(unsafePointer(&resultWkURIRequest)))
-	return AsWkURIRequest(resultWkURIRequest)
+func (m *TWkNavigationAction) GetRequest() WebKitURIRequest {
+	r1 := wkNavigationActionImportAPI().SysCallN(1, m.Instance())
+	return WebKitURIRequest(r1)
 }
 
 var (

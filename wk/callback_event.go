@@ -55,7 +55,7 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 			*result = fn.(TWkLoadFailedEvent)(lcl.AsObject(getPtr(0)), WebKitLoadEvent(getVal(1)), failingUri, error_)
 
 		case TWkURISchemeRequestEvent:
-			fn.(TWkURISchemeRequestEvent)(lcl.AsObject(getPtr(0)), AsWkURISchemeRequest(getVal(1)))
+			fn.(TWkURISchemeRequestEvent)(lcl.AsObject(getPtr(0)), WebKitURISchemeRequest(getVal(1)))
 
 		case TWkProcessMessageEvent:
 			fn.(TWkProcessMessageEvent)(lcl.AsObject(getPtr(0)), AsWkJSValue(getVal(1)), TWkProcessId(getVal(2)))
@@ -77,21 +77,21 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 			fn.(TWkAddCookieFinishEvent)(lcl.AsObject(getPtr(0)), GoBool(getVal(1)), GoStr(getVal(2)))
 
 		case TWkGetCookiesFinishEvent:
-			fn.(TWkGetCookiesFinishEvent)(lcl.AsObject(getPtr(0)), AsWkCookieList(getVal(1)), GoStr(getVal(2)))
+			fn.(TWkGetCookiesFinishEvent)(lcl.AsObject(getPtr(0)), PList(getVal(1)), GoStr(getVal(2)))
 
 		case TWkDeleteCookieFinishEvent:
 			fn.(TWkDeleteCookieFinishEvent)(lcl.AsObject(getPtr(0)), GoBool(getVal(1)), GoStr(getVal(2)))
 
 		case TWkDecidePolicyEvent:
 			result := (*bool)(getPtr(3))
-			*result = fn.(TWkDecidePolicyEvent)(lcl.AsObject(getPtr(0)), AsWkPolicyDecision(getVal(1)), WebKitPolicyDecisionType(getVal(2)))
+			*result = fn.(TWkDecidePolicyEvent)(lcl.AsObject(getPtr(0)), WebKitPolicyDecision(getVal(1)), WebKitPolicyDecisionType(getVal(2)))
 
 		case TWkWebProcessTerminatedEvent:
 			fn.(TWkWebProcessTerminatedEvent)(lcl.AsObject(getPtr(0)), WebKitWebProcessTerminationReason(getVal(1)))
 
 		case TWkContextMenuEvent:
 			result := (*bool)(getPtr(3))
-			*result = fn.(TWkContextMenuEvent)(lcl.AsObject(getPtr(0)), AsWkContextMenu(getVal(1)), WkAction(getVal(2)))
+			*result = fn.(TWkContextMenuEvent)(lcl.AsObject(getPtr(0)), WebKitContextMenu(getVal(1)), PWkAction(getVal(2)))
 
 		case TWkContextMenuCommandEvent:
 			fn.(TWkContextMenuCommandEvent)(lcl.AsObject(getPtr(0)), int32(getVal(1)))

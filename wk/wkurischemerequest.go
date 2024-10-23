@@ -16,17 +16,17 @@ import (
 // IWkURISchemeRequest Root Interface
 type IWkURISchemeRequest interface {
 	IObject
-	Data() WebKitURISchemeRequest                                         // function
-	Scheme() string                                                       // function
-	Uri() string                                                          // function
-	Path() string                                                         // function
-	WebView() WebKitWebView                                               // function
-	Method() string                                                       // function
-	Headers() IWkHeaders                                                  // function
-	Body() IWkInputStream                                                 // function
-	Finish(stream IWkInputStream, streamlength int64, contenttype string) // procedure
-	FinishWithResponse(response WebKitURISchemeResponse)                  // procedure
-	FinishError(code int32, errorMessage string)                          // procedure
+	Data() WebKitURISchemeRequest                                       // function
+	Scheme() string                                                     // function
+	Uri() string                                                        // function
+	Path() string                                                       // function
+	WebView() WebKitWebView                                             // function
+	Method() string                                                     // function
+	Headers() PSoupMessageHeaders                                       // function
+	Body() PInputStream                                                 // function
+	Finish(stream PInputStream, streamlength int64, contenttype string) // procedure
+	FinishWithResponse(response WebKitURISchemeResponse)                // procedure
+	FinishError(code int32, errorMessage string)                        // procedure
 }
 
 // TWkURISchemeRequest Root Object
@@ -69,20 +69,18 @@ func (m *TWkURISchemeRequest) Method() string {
 	return GoStr(r1)
 }
 
-func (m *TWkURISchemeRequest) Headers() IWkHeaders {
-	var resultWkHeaders uintptr
-	wkURISchemeRequestImportAPI().SysCallN(6, m.Instance(), uintptr(unsafePointer(&resultWkHeaders)))
-	return AsWkHeaders(resultWkHeaders)
+func (m *TWkURISchemeRequest) Headers() PSoupMessageHeaders {
+	r1 := wkURISchemeRequestImportAPI().SysCallN(6, m.Instance())
+	return PSoupMessageHeaders(r1)
 }
 
-func (m *TWkURISchemeRequest) Body() IWkInputStream {
-	var resultWkInputStream uintptr
-	wkURISchemeRequestImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultWkInputStream)))
-	return AsWkInputStream(resultWkInputStream)
+func (m *TWkURISchemeRequest) Body() PInputStream {
+	r1 := wkURISchemeRequestImportAPI().SysCallN(0, m.Instance())
+	return PInputStream(r1)
 }
 
-func (m *TWkURISchemeRequest) Finish(stream IWkInputStream, streamlength int64, contenttype string) {
-	wkURISchemeRequestImportAPI().SysCallN(3, m.Instance(), GetObjectUintptr(stream), uintptr(unsafePointer(&streamlength)), PascalStr(contenttype))
+func (m *TWkURISchemeRequest) Finish(stream PInputStream, streamlength int64, contenttype string) {
+	wkURISchemeRequestImportAPI().SysCallN(3, m.Instance(), uintptr(stream), uintptr(unsafePointer(&streamlength)), PascalStr(contenttype))
 }
 
 func (m *TWkURISchemeRequest) FinishWithResponse(response WebKitURISchemeResponse) {

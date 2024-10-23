@@ -16,8 +16,8 @@ import (
 // IWkCookieList Root Interface
 type IWkCookieList interface {
 	IObject
-	Length() int32                   // function
-	GetCookie(index int32) IWkCookie // function
+	Length() int32                     // function
+	GetCookie(index int32) PSoupCookie // function
 }
 
 // TWkCookieList Root Object
@@ -35,10 +35,9 @@ func (m *TWkCookieList) Length() int32 {
 	return int32(r1)
 }
 
-func (m *TWkCookieList) GetCookie(index int32) IWkCookie {
-	var resultWkCookie uintptr
-	wkCookieListImportAPI().SysCallN(1, m.Instance(), uintptr(index), uintptr(unsafePointer(&resultWkCookie)))
-	return AsWkCookie(resultWkCookie)
+func (m *TWkCookieList) GetCookie(index int32) PSoupCookie {
+	r1 := wkCookieListImportAPI().SysCallN(1, m.Instance(), uintptr(index))
+	return PSoupCookie(r1)
 }
 
 var (

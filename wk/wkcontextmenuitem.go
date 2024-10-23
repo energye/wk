@@ -18,10 +18,10 @@ type IWkContextMenuItem interface {
 	IObject
 	Data() WebKitContextMenuItem             // function
 	GetSubmenu() WebKitContextMenu           // function
-	GetAction() WkAction                     // function
+	GetAction() PWkAction                    // function
 	GetStockAction() WebKitContextMenuAction // function
 	IsSeparator() bool                       // function
-	SetSubmenu(submenu IWkContextMenu)       // procedure
+	SetSubmenu(submenu WebKitContextMenu)    // procedure
 }
 
 // TWkContextMenuItem Root Object
@@ -40,34 +40,29 @@ var WkContextMenuItemRef wkContextMenuItem
 // wkContextMenuItem TWkContextMenuItem Ref
 type wkContextMenuItem uintptr
 
-func (m *wkContextMenuItem) NewFromAction(action WkAction, aLabel string, commandId int32) IWkContextMenuItem {
-	var resultWkContextMenuItem uintptr
-	wkContextMenuItemImportAPI().SysCallN(6, uintptr(action), PascalStr(aLabel), uintptr(commandId), uintptr(unsafePointer(&resultWkContextMenuItem)))
-	return AsWkContextMenuItem(resultWkContextMenuItem)
+func (m *wkContextMenuItem) NewFromAction(action PWkAction, aLabel string, commandId int32) IWkContextMenuItem {
+	r1 := wkContextMenuItemImportAPI().SysCallN(6, uintptr(action), PascalStr(aLabel), uintptr(commandId))
+	return AsWkContextMenuItem(r1)
 }
 
 func (m *wkContextMenuItem) NewFromStockAction(action WebKitContextMenuAction) IWkContextMenuItem {
-	var resultWkContextMenuItem uintptr
-	wkContextMenuItemImportAPI().SysCallN(7, uintptr(action), uintptr(unsafePointer(&resultWkContextMenuItem)))
-	return AsWkContextMenuItem(resultWkContextMenuItem)
+	r1 := wkContextMenuItemImportAPI().SysCallN(7, uintptr(action))
+	return AsWkContextMenuItem(r1)
 }
 
 func (m *wkContextMenuItem) NewFromStockActionWithLabel(action WebKitContextMenuAction, aLabel string) IWkContextMenuItem {
-	var resultWkContextMenuItem uintptr
-	wkContextMenuItemImportAPI().SysCallN(8, uintptr(action), PascalStr(aLabel), uintptr(unsafePointer(&resultWkContextMenuItem)))
-	return AsWkContextMenuItem(resultWkContextMenuItem)
+	r1 := wkContextMenuItemImportAPI().SysCallN(8, uintptr(action), PascalStr(aLabel))
+	return AsWkContextMenuItem(r1)
 }
 
 func (m *wkContextMenuItem) NewWithSubmenu(aLabel string, submenu WebKitContextMenu) IWkContextMenuItem {
-	var resultWkContextMenuItem uintptr
-	wkContextMenuItemImportAPI().SysCallN(10, PascalStr(aLabel), uintptr(submenu), uintptr(unsafePointer(&resultWkContextMenuItem)))
-	return AsWkContextMenuItem(resultWkContextMenuItem)
+	r1 := wkContextMenuItemImportAPI().SysCallN(10, PascalStr(aLabel), uintptr(submenu))
+	return AsWkContextMenuItem(r1)
 }
 
 func (m *wkContextMenuItem) NewSeparator() IWkContextMenuItem {
-	var resultWkContextMenuItem uintptr
-	wkContextMenuItemImportAPI().SysCallN(9, uintptr(unsafePointer(&resultWkContextMenuItem)))
-	return AsWkContextMenuItem(resultWkContextMenuItem)
+	r1 := wkContextMenuItemImportAPI().SysCallN(9)
+	return AsWkContextMenuItem(r1)
 }
 
 func (m *TWkContextMenuItem) Data() WebKitContextMenuItem {
@@ -80,9 +75,9 @@ func (m *TWkContextMenuItem) GetSubmenu() WebKitContextMenu {
 	return WebKitContextMenu(r1)
 }
 
-func (m *TWkContextMenuItem) GetAction() WkAction {
+func (m *TWkContextMenuItem) GetAction() PWkAction {
 	r1 := wkContextMenuItemImportAPI().SysCallN(2, m.Instance())
-	return WkAction(r1)
+	return PWkAction(r1)
 }
 
 func (m *TWkContextMenuItem) GetStockAction() WebKitContextMenuAction {
@@ -95,8 +90,8 @@ func (m *TWkContextMenuItem) IsSeparator() bool {
 	return GoBool(r1)
 }
 
-func (m *TWkContextMenuItem) SetSubmenu(submenu IWkContextMenu) {
-	wkContextMenuItemImportAPI().SysCallN(11, m.Instance(), GetObjectUintptr(submenu))
+func (m *TWkContextMenuItem) SetSubmenu(submenu WebKitContextMenu) {
+	wkContextMenuItemImportAPI().SysCallN(11, m.Instance(), uintptr(submenu))
 }
 
 var (

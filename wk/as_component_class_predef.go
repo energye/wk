@@ -18,3 +18,23 @@ func AsStrings(obj uintptr) IStrings {
 	SetObjectInstance(stream, instance)
 	return stream
 }
+
+func AsWkCookieManagerDelegateEvent(obj uintptr) IWkCookieManagerDelegateEvent {
+	instance := GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	delegate := new(TWkWebview)
+	SetObjectInstance(delegate, instance)
+	return delegate
+}
+
+func AsWkSchemeRequestDelegateEvent(obj uintptr) IWkSchemeRequestDelegateEvent {
+	instance := GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	delegate := new(TWkWebview)
+	SetObjectInstance(delegate, instance)
+	return delegate
+}
