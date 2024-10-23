@@ -10,26 +10,28 @@ package wk
 
 import "github.com/energye/lcl/types"
 
-type WebKitContextMenuItem = uintptr
-type WebKitContextMenu = uintptr
-type WebKitJavascriptResult = uintptr
-type WebKitNavigationAction = uintptr
-type WebKitPolicyDecision = uintptr
-type WebKitSettings = uintptr
-type WebKitURIRequest = uintptr
-type WebKitURIResponse = uintptr
-type WebKitURISchemeRequest = uintptr
-type WebKitWebView = uintptr
-type WebKitURISchemeResponse = uintptr
-type WebKitWebsitePolicies = uintptr
-type WebKitWebContext = uintptr
-type WebKitCookieManager = uintptr
-type PWkAction = uintptr
-type PSoupDate = uintptr
-type PSoupMessageHeaders = uintptr
-type PInputStream = uintptr
-type PSoupCookie = uintptr
-type PList = uintptr
+type WebKitContextMenuItem uintptr
+type WebKitContextMenu uintptr
+type WebKitJavascriptResult uintptr
+type WebKitNavigationAction uintptr
+type WebKitPolicyDecision uintptr
+type WebKitNavigationPolicyDecision uintptr
+type WebKitResponsePolicyDecision uintptr
+type WebKitSettings uintptr
+type WebKitURIRequest uintptr
+type WebKitURIResponse uintptr
+type WebKitURISchemeRequest uintptr
+type WebKitWebView uintptr
+type WebKitURISchemeResponse uintptr
+type WebKitWebsitePolicies uintptr
+type WebKitWebContext uintptr
+type WebKitCookieManager uintptr
+type PWkAction uintptr
+type PSoupDate uintptr
+type PSoupMessageHeaders uintptr
+type PInputStream uintptr
+type PSoupCookie uintptr
+type PList uintptr
 
 type TScrolledWindow = uintptr
 

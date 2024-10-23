@@ -118,6 +118,17 @@ func AsWkNavigationAction(obj interface{}) IWkNavigationAction {
 	return wkNavigationAction
 }
 
+// AsWkNavigationPolicyDecision Convert a pointer object to an existing class object
+func AsWkNavigationPolicyDecision(obj interface{}) IWkNavigationPolicyDecision {
+	instance := GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	wkNavigationPolicyDecision := new(TWkNavigationPolicyDecision)
+	SetObjectInstance(wkNavigationPolicyDecision, instance)
+	return wkNavigationPolicyDecision
+}
+
 // AsWkPolicyDecision Convert a pointer object to an existing class object
 func AsWkPolicyDecision(obj interface{}) IWkPolicyDecision {
 	instance := GetInstance(obj)
@@ -127,6 +138,17 @@ func AsWkPolicyDecision(obj interface{}) IWkPolicyDecision {
 	wkPolicyDecision := new(TWkPolicyDecision)
 	SetObjectInstance(wkPolicyDecision, instance)
 	return wkPolicyDecision
+}
+
+// AsWkResponsePolicyDecision Convert a pointer object to an existing class object
+func AsWkResponsePolicyDecision(obj interface{}) IWkResponsePolicyDecision {
+	instance := GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	wkResponsePolicyDecision := new(TWkResponsePolicyDecision)
+	SetObjectInstance(wkResponsePolicyDecision, instance)
+	return wkResponsePolicyDecision
 }
 
 // AsWkSettings Convert a pointer object to an existing class object
