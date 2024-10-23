@@ -15,8 +15,8 @@ type WebKitContextMenu uintptr
 type WebKitJavascriptResult uintptr
 type WebKitNavigationAction uintptr
 type WebKitPolicyDecision uintptr
-type WebKitNavigationPolicyDecision uintptr
-type WebKitResponsePolicyDecision uintptr
+type WebKitNavigationPolicyDecision = WebKitPolicyDecision
+type WebKitResponsePolicyDecision = WebKitPolicyDecision
 type WebKitSettings uintptr
 type WebKitURIRequest uintptr
 type WebKitURIResponse uintptr
